@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fleur Aesthetics</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- 🎬 INTRO -->
+<div id="intro" class="intro">
+  <h1 class="logo">Fleur ✨</h1>
+</div>
+
+<!-- BACKGROUND -->
+<div class="bg"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <h2 class="brand">Fleur</h2>
+  <div class="links">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <span onclick="openCart()">Cart (<span id="cart-count">0</span>)</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-box">
+    <h1>Luxury Aesthetic Store</h1>
+    <p>Soft • Elegant • Premium</p>
+    <a href="shop.html">
+      <button class="premium-btn">Explore Collection</button>
+    </a>
+  </div>
+</section>
+
+<!-- 🛒 CART DRAWER -->
+<div id="cartDrawer" class="cart-drawer">
+
+  <div style="display:flex;justify-content:space-between;">
+    <h3>Your Cart</h3>
+    <button onclick="openCart()">✕</button>
+  </div>
+
+  <div id="cart-items"></div>
+  <h4 id="total"></h4>
+
+  <button onclick="checkout()">Order on WhatsApp</button>
+
+</div>
+
+<!-- 📱 MOBILE NAV -->
+<div class="mobile-nav">
+  <a href="index.html">🏠</a>
+  <a href="shop.html">🛍️</a>
+  <span onclick="openCart()">
+    🛒 <span id="mobile-cart-count">0</span>
+  </span>
+</div>
+
+<!-- SCRIPT -->
+<script src="script.js"></script>
+
+<!-- INTRO CONTROL -->
+<script>
+window.addEventListener("load", () => {
+  const intro = document.getElementById("intro");
+  setTimeout(() => intro.classList.add("fade-out"), 1200);
+  setTimeout(() => intro.style.display = "none", 2000);
+});
+</script>
+
+</body>
+</html>
