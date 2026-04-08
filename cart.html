@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Cart</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart - Fleur</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -10,21 +10,30 @@
 
 <div class="bg"></div>
 
+<!-- NAV -->
 <nav class="nav">
-  <h2>Fleur Aesthetics</h2>
+  <h2>Fleur</h2>
   <div>
     <a href="index.html">Home</a>
     <a href="shop.html">Shop</a>
-    <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+    <span onclick="openCart()">Cart (<span id="cart-count">0</span>)</span>
   </div>
 </nav>
 
-<section class="cart">
+<!-- 🛒 CART SECTION -->
+<section class="cart-page">
+  <h2>Your Cart</h2>
+
   <div id="cart-items"></div>
+
   <h3 id="total"></h3>
-  <button onclick="checkout()">Order on WhatsApp</button>
+
+  <button class="premium-btn" onclick="checkout()">
+    Order on WhatsApp
+  </button>
 </section>
 
 <script src="script.js"></script>
+
 </body>
 </html>
