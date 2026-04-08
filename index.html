@@ -9,7 +9,6 @@
 
 <body>
 
-<!-- 🎬 NETFLIX INTRO -->
 <div id="intro">
   <h1>FLEUR OFFICIAL</h1>
 </div>
@@ -21,6 +20,7 @@
     <a href="index.html">Home</a>
     <a href="shop.html">Shop</a>
     <span onclick="openCart()">Cart (<span id="cart-count">0</span>)</span>
+    <button onclick="toggleTheme()" class="theme-toggle">🌙</button>
   </div>
 </nav>
 
@@ -52,13 +52,8 @@ window.onload = () => {
   const intro = document.getElementById("intro");
   intro.classList.add("show");
 
-  setTimeout(() => {
-    intro.classList.add("hide");
-  }, 1800);
-
-  setTimeout(() => {
-    intro.style.display = "none";
-  }, 2400);
+  setTimeout(() => intro.classList.add("hide"), 1800);
+  setTimeout(() => intro.style.display = "none", 2400);
 };
 </script>
 
