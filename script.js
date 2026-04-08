@@ -1,3 +1,4 @@
+
 const RS = "\u20B9";
 
 const products = [
@@ -151,3 +152,58 @@ function animateCartCount() {
 /* INIT */
 loadProducts();
 updateCartUI();
+/* 🔥 WHATSAPP ORDER FUNCTION */
+function checkout() {
+  if (cart.length === 0) {
+    alert("Cart is empty!");
+    return;
+  }
+
+  let message = "🛍️ *New Order* \n\n";
+
+  let total = 0;
+
+  cart.forEach((item) => {
+    message += `• ${item.name} x${item.qty} = ₹${item.price * item.qty}\n`;
+    total += item.price * item.qty;
+  });
+
+  message += `\n💰 Total: ₹${total}`;
+
+  const phone = "91XXXXXXXXXX"; // 🔴 PUT YOUR NUMBER HERE
+
+  const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+  window.open(url, "_blank");
+}
+
+/* 🔥 FINAL CHECKOUT WITH DETAILS */
+function finalOrder() {
+  const inputs = document.querySelectorAll("input");
+
+  const name = inputs[0].value;
+  const address = inputs[1].value;
+  const phoneUser = inputs[2].value;
+
+  if (!name || !address || !phoneUser) {
+    alert("Please fill all details");
+    return;
+  }
+
+  let message = `🛍️ *New Order*\n\n👤 Name: ${name}\n📍 Address: ${address}\n📞 Phone: ${phoneUser}\n\n`;
+
+  let total = 0;
+
+  cart.forEach((item) => {
+    message += `• ${item.name} x${item.qty} = ₹${item.price * item.qty}\n`;
+    total += item.price * item.qty;
+  });
+
+  message += `\n💰 Total: ₹${total}`;
+
+  const businessNumber = "7719587527"; // 🔴 YOUR NUMBER
+
+  const url = `https://wa.me/${businessNumber}?text=${encodeURIComponent(message)}`;
+
+  window.open(url, "_blank");
+}
