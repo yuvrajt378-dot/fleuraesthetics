@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fleur Aesthetics</title>
 <link rel="stylesheet" href="style.css">
@@ -8,18 +9,15 @@
 
 <body>
 
-<!-- 🎬 NETFLIX STYLE INTRO -->
-<div id="intro" class="intro">
-  <h1 class="netflix-logo">FLEUR OFFICIAL</h1>
+<!-- 🎬 NETFLIX INTRO -->
+<div id="intro">
+  <h1>FLEUR OFFICIAL</h1>
 </div>
-
-<!-- BACKGROUND -->
-<div class="bg"></div>
 
 <!-- NAV -->
 <nav class="nav">
-  <h2 class="brand">Fleur</h2>
-  <div class="links">
+  <h2>Fleur</h2>
+  <div>
     <a href="index.html">Home</a>
     <a href="shop.html">Shop</a>
     <span onclick="openCart()">Cart (<span id="cart-count">0</span>)</span>
@@ -28,54 +26,40 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-box">
-    <h1>Luxury Aesthetic Store</h1>
-    <p>Soft • Elegant • Premium</p>
-    <a href="shop.html">
-      <button class="premium-btn">Explore Collection</button>
-    </a>
-  </div>
+  <h1>Fleur Aesthetics</h1>
+  <p>Let your skin bloom 🌸</p>
 </section>
 
-<!-- 🛒 CART -->
-<div id="cartDrawer" class="cart-drawer">
-  <div style="display:flex;justify-content:space-between;">
-    <h3>Your Cart</h3>
-    <button onclick="openCart()">✕</button>
-  </div>
-
-  <div id="cart-items"></div>
-  <h4 id="total"></h4>
-
-  <button onclick="checkout()">Order on WhatsApp</button>
+<div class="bottom-buttons">
+  <a href="shop.html"><button class="premium-btn">Shop Now</button></a>
+  <a href="https://instagram.com/_fleur.official_" target="_blank">
+    <button class="outline-btn">Instagram</button>
+  </a>
 </div>
 
-<!-- 📱 MOBILE NAV -->
-<div class="mobile-nav">
-  <a href="index.html">🏠</a>
-  <a href="shop.html">🛍️</a>
-  <span onclick="openCart()">🛒 <span id="mobile-cart-count">0</span></span>
+<!-- CART -->
+<div id="cartDrawer" class="cart-drawer">
+  <h3>Your Cart</h3>
+  <div id="cart-items"></div>
+  <h4 id="total"></h4>
+  <button onclick="checkout()">Order on WhatsApp</button>
 </div>
 
 <script src="script.js"></script>
 
-<!-- 🎬 INTRO ANIMATION CONTROL -->
 <script>
-window.addEventListener("load", () => {
+window.onload = () => {
   const intro = document.getElementById("intro");
+  intro.classList.add("show");
 
   setTimeout(() => {
-    intro.classList.add("intro-animate");
-  }, 300);
-
-  setTimeout(() => {
-    intro.classList.add("fade-out");
+    intro.classList.add("hide");
   }, 1800);
 
   setTimeout(() => {
     intro.style.display = "none";
-  }, 2500);
-});
+  }, 2400);
+};
 </script>
 
 </body>
