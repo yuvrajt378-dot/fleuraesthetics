@@ -10,14 +10,29 @@
 
 <div class="bg"></div>
 
-<section class="checkout fade glass">
+<section class="checkout glass">
+
   <h2>Checkout</h2>
 
-  <input placeholder="Full Name">
-  <input placeholder="Address">
-  <input placeholder="Phone Number">
+  <div class="form-group">
+    <label>Full Name</label>
+    <input placeholder="Enter your name">
+  </div>
 
-  <button onclick="finalOrder()">Place Order</button>
+  <div class="form-group">
+    <label>Address</label>
+    <input placeholder="Enter your address">
+  </div>
+
+  <div class="form-group">
+    <label>Phone Number</label>
+    <input placeholder="Enter your phone number">
+  </div>
+
+  <button class="premium-btn big-btn" onclick="finalOrder()">
+    Place Order
+  </button>
+
 </section>
 
 <script src="script.js"></script>
