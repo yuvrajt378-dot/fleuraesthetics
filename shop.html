@@ -15,18 +15,20 @@
     <a href="index.html">Home</a>
     <a href="shop.html">Shop</a>
     <span onclick="openCart()">Cart (<span id="cart-count">0</span>)</span>
+    <button onclick="toggleTheme()" class="theme-toggle">🌙</button>
   </div>
 </nav>
 
 <section id="shop" class="products"></section>
 
-<!-- CART -->
 <div id="cartDrawer" class="cart-drawer">
   <h3>Your Cart</h3>
   <div id="cart-items"></div>
   <h4 id="total"></h4>
   <button onclick="checkout()">Order on WhatsApp</button>
 </div>
+
+<div id="toast" class="toast">Added to cart</div>
 
 <script src="script.js"></script>
 </body>
