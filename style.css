@@ -1,3 +1,4 @@
+
 * {
   margin: 0;
   padding: 0;
@@ -216,4 +217,215 @@ button {
     font-size: 13px;
     padding: 10px 16px;
   }
+}
+/* 🔥 GLOBAL RESPONSIVE IMPROVEMENTS */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* NAV FIX */
+.nav {
+  backdrop-filter: blur(10px);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* HERO IMPROVE */
+.hero h1 {
+  font-size: clamp(26px, 5vw, 48px);
+}
+
+.hero p {
+  font-size: clamp(14px, 2.5vw, 18px);
+}
+
+/* BUTTON FIX */
+button {
+  font-size: 14px;
+}
+
+/* PRODUCT GRID BETTER */
+.products {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+/* CARD IMPROVE */
+.card {
+  transition: transform 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* CART DRAWER (PREMIUM LOOK) */
+.cart-drawer {
+  max-width: 500px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 75%;
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+}
+
+/* CART PAGE */
+.cart-page {
+  padding: 120px 20px 40px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.cart-page h2 {
+  margin-bottom: 20px;
+}
+
+.cart-item {
+  justify-content: space-between;
+}
+
+/* MOBILE CTA FIX */
+.cart-page button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* CHECKOUT FORM */
+.checkout {
+  max-width: 500px;
+  margin: 120px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkout input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+/* 🔥 MOBILE OPTIMIZATION */
+@media (max-width: 600px) {
+
+  .nav {
+    padding: 10px 15px;
+  }
+
+  .products {
+    padding: 90px 10px;
+    gap: 10px;
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  .cart-drawer {
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .bottom-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .bottom-buttons button {
+    width: 90%;
+  }
+}
+/* 💎 GLASSMORPHISM CORE */
+.glass {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+/* 🌟 NAV GLASS */
+.nav {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* 🌟 HERO GLASS TEXT */
+.hero {
+  backdrop-filter: blur(6px);
+}
+
+/* 💎 PRODUCT CARD GLASS */
+.card {
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.3);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+/* 💎 CART DRAWER GLASS */
+.cart-drawer {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(18px);
+  border-top: 1px solid rgba(255,255,255,0.3);
+}
+
+/* 💎 CART ITEMS */
+.cart-item {
+  background: rgba(255,255,255,0.3);
+  padding: 10px;
+  border-radius: 12px;
+}
+
+/* 💎 BUTTON PREMIUM STYLE */
+.premium-btn {
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.3s ease;
+}
+
+.premium-btn:hover {
+  background: black;
+  transform: scale(1.05);
+}
+
+/* 💎 OUTLINE BUTTON */
+.outline-btn {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0,0,0,0.2);
+}
+
+/* 💎 CHECKOUT GLASS */
+.checkout {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+}
+
+/* 💎 INPUT STYLE */
+.checkout input {
+  background: rgba(255,255,255,0.4);
+  border: none;
+  backdrop-filter: blur(8px);
+}
+
+/* 💎 TOAST UPGRADE */
+.toast {
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+}
+
+/* ✨ SMOOTH TEXT LOOK */
+body {
+  -webkit-font-smoothing: antialiased;
 }
