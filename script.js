@@ -1,209 +1,247 @@
-
-const RS = "\u20B9";
-
-const products = [
-  { id: 1, name: "Bouquet", price: 499, img: "images/p1.jpg" },
-  { id: 2, name: "Rose Pack", price: 399, img: "images/p2.jpg" },
-  { id: 3, name: "Luxury Box", price: 699, img: "images/p3.jpg" },
-  { id: 4, name: "Gift Set", price: 599, img: "images/p4.jpg" },
-];
-
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-/* LOAD PRODUCTS */
-function loadProducts() {
+// 🌗 THEME INIT
+(function () {
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark");
+  }
+})();
+
+// 🌙 TOGGLE THEME
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+
+  if (document.body.classList.contains("dark")) {
+    localStorage.setItem("theme", "dark");
+  } else {
+    localStorage.setItem("theme", "light");
+  }
+}
+
+// 🛍️ PRODUCTS
+const products = [
+  {
+    id: 1,
+    name: "Fleur Lip Scrub (Litchi)",
+    price: 349,
+    images: ["images/litchi1.jpg", "images/litchi2.jpg"]
+  },
+  {
+    id: 2,
+    name: "Fleur Lip Scrub (Strawberry)",
+    price: 349,
+    images: ["images/strawberry1.jpg", "images/strawberry2.jpg"]
+  },
+  {
+    id: 3,
+    name: "Fleur Lip Scrub (Lemon)",
+    price: 349,
+    images: ["images/lemon1.jpg", "images/lemon2.jpg"]
+  },
+  {
+    id: 4,
+    name: "Fleur Lip Scrub (Brownie)",
+    price: 349,
+    images: ["images/brownie1.jpg", "images/brownie2.jpg"]
+  }
+];
+
+// 🔥 RENDER PRODUCTS
+function renderProducts() {
   const shop = document.getElementById("shop");
   if (!shop) return;
 
-  shop.innerHTML = "";
-
-  products.forEach((p, index) => {
-    shop.innerHTML += `
-      <div class="card fade-in" style="transition-delay:${index * 0.08}s">
-        <img src="${p.img}">
-        <h3>${p.name}</h3>
-        <p>${RS} ${p.price}</p>
-        <button onclick="addToCart(${p.id}, this)">Add</button>
+  shop.innerHTML = products.map(p => `
+    <div class="card" onclick="openPreview(${p.id})">
+      <div class="img-box">
+        <img src="${p.images[0]}"
+             onmouseover="this.src='${p.images[1]}'"
+             onmouseout="this.src='${p.images[0]}'">
       </div>
-    `;
-  });
 
-  observeScroll();
+      <h4>${p.name}</h4>
+      <p>₹${p.price}</p>
+
+      <button onclick="event.stopPropagation(); addToCart(${p.id}, this)" class="premium-btn">
+        Add to Cart
+      </button>
+    </div>
+  `).join("");
 }
 
-/* ADD TO CART */
+// 🔍 OPEN PREVIEW
+function openPreview(id) {
+  const product = products.find(p => p.id === id);
+  let index = 0;
+
+  const popup = document.createElement("div");
+  popup.className = "product-popup";
+
+  popup.innerHTML = `
+    <div class="popup-content">
+      <span class="close-btn" onclick="this.closest('.product-popup').remove()">✕</span>
+
+      <div class="popup-img">
+        <img id="popup-main-img" src="${product.images[0]}">
+      </div>
+
+      <div class="popup-thumbs">
+        ${product.images.map((img, i) => `
+          <img src="${img}" onclick="changeImage(${i})">
+        `).join("")}
+      </div>
+
+      <h3>${product.name}</h3>
+      <p>₹${product.price}</p>
+
+      <button onclick="addToCart(${product.id}); this.closest('.product-popup').remove();" class="premium-btn big-btn">
+        Add to Cart
+      </button>
+    </div>
+  `;
+
+  document.body.appendChild(popup);
+
+  window.changeImage = (i) => {
+    index = i;
+    document.getElementById("popup-main-img").src = product.images[index];
+  };
+
+  let startX = 0;
+
+  popup.addEventListener("touchstart", e => {
+    startX = e.touches[0].clientX;
+  });
+
+  popup.addEventListener("touchend", e => {
+    let endX = e.changedTouches[0].clientX;
+
+    if (startX - endX > 50) index = (index + 1) % product.images.length;
+    else if (endX - startX > 50) index = (index - 1 + product.images.length) % product.images.length;
+
+    document.getElementById("popup-main-img").src = product.images[index];
+  });
+
+  const img = popup.querySelector("#popup-main-img");
+  img.addEventListener("click", () => img.classList.toggle("zoomed"));
+}
+
+// ➕ ADD TO CART
 function addToCart(id, btn) {
-  const item = cart.find((i) => i.id === id);
+  const item = cart.find(i => i.id === id);
 
   if (item) item.qty++;
   else {
-    const product = products.find((p) => p.id === id);
-    cart.push({ ...product, qty: 1 });
+    const product = products.find(p => p.id === id);
+    cart.push({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      img: product.images[0],
+      qty: 1
+    });
   }
 
-  /* Button press */
-  btn.style.transform = "scale(0.9)";
-  setTimeout(() => (btn.style.transform = "scale(1)"), 150);
-
-  animateCartCount();
-  showToast("Added to Cart 🛍️");
-
-  updateCartUI();
   saveCart();
+  animateCart();
+  showToast("Added to cart ✨");
 }
 
-/* FLOATING TOAST */
-function showToast(message) {
-  let toast = document.createElement("div");
-  toast.className = "toast";
-  toast.innerText = message;
-
-  document.body.appendChild(toast);
-
-  setTimeout(() => toast.classList.add("show"), 50);
-
-  setTimeout(() => {
-    toast.classList.remove("show");
-    setTimeout(() => toast.remove(), 400);
-  }, 2000);
+// 💾 SAVE
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartUI();
 }
 
-/* SCROLL ANIMATION */
-function observeScroll() {
-  const items = document.querySelectorAll(".fade-in");
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-      }
-    });
-  });
-
-  items.forEach((el) => observer.observe(el));
-}
-
-/* CART UI */
+// 🔄 UPDATE UI
 function updateCartUI() {
-  const cartItems = document.getElementById("cart-items");
+  const count = document.getElementById("cart-count");
+  if (count) count.innerText = cart.reduce((a, b) => a + b.qty, 0);
+
+  const itemsContainer = document.getElementById("cart-items");
   const totalEl = document.getElementById("total");
-  const countEl = document.getElementById("cart-count");
 
-  if (!cartItems) return;
+  if (!itemsContainer) return;
 
-  cartItems.innerHTML = "";
+  if (cart.length === 0) {
+    itemsContainer.innerHTML = `<p style="text-align:center;opacity:0.6;">Cart is empty</p>`;
+    if (totalEl) totalEl.innerText = "";
+    return;
+  }
+
   let total = 0;
 
-  cart.forEach((item) => {
+  itemsContainer.innerHTML = cart.map(item => {
     total += item.price * item.qty;
 
-    cartItems.innerHTML += `
+    return `
       <div class="cart-item">
-        <img src="${item.img}" class="cart-img">
-        <div>
-          <h4>${item.name}</h4>
-          <p>${RS} ${item.price}</p>
+        <div class="cart-left">
+          <img src="${item.img}" class="cart-img">
+          <div class="cart-info">
+            <h4>${item.name}</h4>
+            <p>₹${item.price}</p>
+          </div>
         </div>
 
         <div class="qty-box">
-          <button onclick="changeQty(${item.id},-1)">−</button>
+          <button onclick="changeQty(${item.id}, -1)">-</button>
           <span>${item.qty}</span>
-          <button onclick="changeQty(${item.id},1)">+</button>
+          <button onclick="changeQty(${item.id}, 1)">+</button>
         </div>
       </div>
     `;
-  });
+  }).join("");
 
-  totalEl.innerText = "Total: " + RS + " " + total;
-  countEl.innerText = cart.reduce((s, i) => s + i.qty, 0);
+  if (totalEl) totalEl.innerText = "Total: ₹" + total;
 }
 
-/* QTY */
-function changeQty(id, val) {
-  const item = cart.find((i) => i.id === id);
-  item.qty += val;
+// 🔄 CHANGE QTY
+function changeQty(id, change) {
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
 
-  if (item.qty <= 0) {
-    cart = cart.filter((i) => i.id !== id);
-  }
+  item.qty += change;
+  if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
 
-  updateCartUI();
   saveCart();
 }
 
-/* SAVE */
-function saveCart() {
-  localStorage.setItem("cart", JSON.stringify(cart));
-}
-
-/* CART OPEN */
+// 🛒 OPEN CART
 function openCart() {
-  document.getElementById("cartDrawer").classList.toggle("open");
+  const drawer = document.getElementById("cartDrawer");
+  if (drawer) drawer.classList.toggle("open");
 }
 
-/* COUNT ANIMATION */
-function animateCartCount() {
-  const el = document.getElementById("cart-count");
-  el.classList.add("cart-bounce");
+// 🎯 CART ANIMATION
+function animateCart() {
+  const cartIcon = document.getElementById("cart-count");
+  if (!cartIcon) return;
 
-  setTimeout(() => el.classList.remove("cart-bounce"), 300);
+  cartIcon.classList.add("cart-bounce");
+  setTimeout(() => cartIcon.classList.remove("cart-bounce"), 300);
 }
 
-/* INIT */
-loadProducts();
-updateCartUI();
-/* 🔥 WHATSAPP ORDER FUNCTION */
+// 🔥 TOAST
+function showToast(msg) {
+  const toast = document.getElementById("toast");
+  if (!toast) return;
+
+  toast.innerText = msg;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 2000);
+}
+
+// 📦 CHECKOUT
 function checkout() {
   if (cart.length === 0) {
-    alert("Cart is empty!");
+    showToast("Cart is empty 🥲");
     return;
   }
-
-  let message = "🛍️ *New Order* \n\n";
-
-  let total = 0;
-
-  cart.forEach((item) => {
-    message += `• ${item.name} x${item.qty} = ₹${item.price * item.qty}\n`;
-    total += item.price * item.qty;
-  });
-
-  message += `\n💰 Total: ₹${total}`;
-
-  const phone = "91XXXXXXXXXX"; // 🔴 PUT YOUR NUMBER HERE
-
-  const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-
-  window.open(url, "_blank");
+  window.location.href = "checkout.html";
 }
 
-/* 🔥 FINAL CHECKOUT WITH DETAILS */
-function finalOrder() {
-  const inputs = document.querySelectorAll("input");
-
-  const name = inputs[0].value;
-  const address = inputs[1].value;
-  const phoneUser = inputs[2].value;
-
-  if (!name || !address || !phoneUser) {
-    alert("Please fill all details");
-    return;
-  }
-
-  let message = `🛍️ *New Order*\n\n👤 Name: ${name}\n📍 Address: ${address}\n📞 Phone: ${phoneUser}\n\n`;
-
-  let total = 0;
-
-  cart.forEach((item) => {
-    message += `• ${item.name} x${item.qty} = ₹${item.price * item.qty}\n`;
-    total += item.price * item.qty;
-  });
-
-  message += `\n💰 Total: ₹${total}`;
-
-  const businessNumber = "7719587527"; // 🔴 YOUR NUMBER
-
-  const url = `https://wa.me/${businessNumber}?text=${encodeURIComponent(message)}`;
-
-  window.open(url, "_blank");
-}
+// 🚀 INIT
+renderProducts();
+updateCartUI();
