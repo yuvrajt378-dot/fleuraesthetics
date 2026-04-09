@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart - Fleur</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<nav class="nav">
+  <h2>Fleur</h2>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <span onclick="openCart()">Cart (<span id="cart-count">0</span>)</span>
+    <button onclick="toggleTheme()" class="theme-toggle">🌙</button>
+  </div>
+</nav>
+
+<section class="cart-page glass">
+  <h2>Your Cart</h2>
+
+  <div id="cart-items"></div>
+  <h3 id="total"></h3>
+
+  <button class="premium-btn" onclick="checkout()">
+    Order on WhatsApp
+  </button>
+</section>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+

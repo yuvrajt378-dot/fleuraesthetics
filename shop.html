@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop - Fleur</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav class="nav">
+  <h2>Fleur</h2>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <span onclick="openCart()">Cart (<span id="cart-count">0</span>)</span>
+    <button onclick="toggleTheme()" class="theme-toggle">🌙</button>
+  </div>
+</nav>
+
+<section id="shop" class="products"></section>
+
+<div id="cartDrawer" class="cart-drawer">
+  <h3>Your Cart</h3>
+  <div id="cart-items"></div>
+  <h4 id="total"></h4>
+  <button onclick="checkout()">Order on WhatsApp</button>
+</div>
+
+<div id="toast" class="toast">Added to cart</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+

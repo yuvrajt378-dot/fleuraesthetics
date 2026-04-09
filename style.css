@@ -1,0 +1,646 @@
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, sans-serif;
+}
+
+body {
+  background: url("images/bg.jpg") center/cover no-repeat fixed;
+  color: #111;
+}
+
+/* NAV  */
+.nav {
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 40px;
+  background: rgba(255,255,255,0.8);
+}
+
+/* HERO */
+.hero {
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 40px;
+}
+
+.hero p {
+  margin-top: 10px;
+}
+
+/* BUTTONS */
+.bottom-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 50px;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.premium-btn {
+  background: #111;
+  color: white;
+  border: none;
+}
+
+.outline-btn {
+  border: 1px solid #111;
+  background: transparent;
+}
+
+/* PRODUCTS */
+.products {
+  padding: 100px 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+  gap: 15px;
+}
+
+.card {
+  background: rgba(255,255,255,0.85);
+  padding: 12px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* CART */
+.cart-drawer {
+  position: fixed;
+  bottom: -100%;
+  width: 100%;
+  height: 70%;
+  background: rgba(255,255,255,0.95);
+  padding: 15px;
+  border-radius: 25px 25px 0 0;
+  transition: 0.4s;
+}
+
+.cart-drawer.open {
+  bottom: 0;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.cart-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+}
+
+.qty-box {
+  display: flex;
+  gap: 5px;
+}
+
+.qty-box button {
+  width: 28px;
+  height: 28px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+/* 🎬 NETFLIX INTRO FIXED */
+#intro {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#intro h1 {
+  font-size: 42px;
+  color: white;
+  letter-spacing: 15px;
+  opacity: 0;
+}
+
+#intro.show h1 {
+  animation: netflix 1.5s forwards;
+}
+
+#intro.hide {
+  animation: fadeOut 0.6s forwards;
+}
+
+@keyframes netflix {
+  0% { opacity: 0; letter-spacing: 25px; }
+  100% { opacity: 1; letter-spacing: 8px; }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; }
+}
+
+/* 📱 RESPONSIVE */
+@media(max-width:600px){
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .nav {
+    font-size: 14px;
+  }
+}
+/* 🔥 CART BOUNCE */
+@keyframes bounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+.cart-bounce {
+  animation: bounce 0.3s ease;
+}
+/* ✨ FLOATING TOAST */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(40px);
+  background: rgba(0,0,0,0.85);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(.22,1,.36,1);
+  z-index: 9999;
+  backdrop-filter: blur(10px);
+}
+
+/* SHOW */
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 📱 MOBILE SAFE */
+@media(max-width:600px){
+  .toast {
+    bottom: 20px;
+    font-size: 13px;
+    padding: 10px 16px;
+  }
+}
+/* 🔥 GLOBAL RESPONSIVE IMPROVEMENTS */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* NAV FIX */
+.nav {
+  backdrop-filter: blur(10px);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* HERO IMPROVE */
+.hero h1 {
+  font-size: clamp(26px, 5vw, 48px);
+}
+
+.hero p {
+  font-size: clamp(14px, 2.5vw, 18px);
+}
+
+/* BUTTON FIX */
+button {
+  font-size: 14px;
+}
+
+/* PRODUCT GRID BETTER */
+.products {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+/* CARD IMPROVE */
+.card {
+  transition: transform 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* CART DRAWER (PREMIUM LOOK) */
+.cart-drawer {
+  max-width: 500px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 75%;
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+}
+
+/* CART PAGE */
+.cart-page {
+  padding: 120px 20px 40px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.cart-page h2 {
+  margin-bottom: 20px;
+}
+
+.cart-item {
+  justify-content: space-between;
+}
+
+/* MOBILE CTA FIX */
+.cart-page button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* CHECKOUT FORM */
+.checkout {
+  max-width: 500px;
+  margin: 120px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkout input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+/* 🔥 MOBILE OPTIMIZATION */
+@media (max-width: 600px) {
+
+  .nav {
+    padding: 10px 15px;
+  }
+
+  .products {
+    padding: 90px 10px;
+    gap: 10px;
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  .cart-drawer {
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .bottom-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .bottom-buttons button {
+    width: 90%;
+  }
+}
+/* 💎 GLASSMORPHISM CORE */
+.glass {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+}
+
+/* 🌟 NAV GLASS */
+.nav {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* 🌟 HERO GLASS TEXT */
+.hero {
+  backdrop-filter: blur(6px);
+}
+
+/* 💎 PRODUCT CARD GLASS */
+.card {
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.3);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+/* 💎 CART DRAWER GLASS */
+.cart-drawer {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(18px);
+  border-top: 1px solid rgba(255,255,255,0.3);
+}
+
+/* 💎 CART ITEMS */
+.cart-item {
+  background: rgba(255,255,255,0.3);
+  padding: 10px;
+  border-radius: 12px;
+}
+
+/* 💎 BUTTON PREMIUM STYLE */
+.premium-btn {
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.3s ease;
+}
+
+.premium-btn:hover {
+  background: black;
+  transform: scale(1.05);
+}
+
+/* 💎 OUTLINE BUTTON */
+.outline-btn {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0,0,0,0.2);
+}
+
+/* 💎 CHECKOUT GLASS */
+.checkout {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+}
+
+/* 💎 INPUT STYLE */
+.checkout input {
+  background: rgba(255,255,255,0.4);
+  border: none;
+  backdrop-filter: blur(8px);
+}
+
+/* 💎 TOAST UPGRADE */
+.toast {
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+}
+
+/* ✨ SMOOTH TEXT LOOK */
+body {
+  -webkit-font-smoothing: antialiased;
+}
+/* 🔥 CART UPGRADE */
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: rgba(255,255,255,0.4);
+  padding: 12px;
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+}
+
+.cart-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-img {
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+}
+
+.cart-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-info h4 {
+  font-size: 14px;
+}
+
+.cart-info p {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/* 🔥 FOOTER */
+.cart-footer {
+  margin-top: 20px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  padding-top: 15px;
+}
+
+/* 🔥 EMPTY STATE */
+.empty-cart {
+  text-align: center;
+  padding: 40px 0;
+  opacity: 0.7;
+}
+
+/* 🔥 BIG BUTTON */
+.big-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px;
+  font-size: 15px;
+}
+
+/* 🔥 CHECKOUT FORM */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 13px;
+  opacity: 0.7;
+}
+/* 🔥 IMAGE HOVER EFFECT */
+.img-box {
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.img-box img {
+  width: 100%;
+  transition: transform 0.4s ease;
+}
+
+.img-box:hover img {
+  transform: scale(1.1);
+}
+/* 🔥 PRODUCT POPUP */
+.product-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 15px;
+}
+
+.popup-content {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.popup-img img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.popup-thumbs {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0;
+  justify-content: center;
+}
+
+.popup-thumbs img {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+/* 📱 MOBILE PERFECT */
+@media (max-width: 600px) {
+  .popup-content {
+    max-width: 95%;
+    padding: 15px;
+  }
+
+  .popup-thumbs img {
+    width: 45px;
+    height: 45px;
+  }
+}
+/* 🔍 ZOOM */
+.zoomed {
+  transform: scale(1.8);
+  cursor: zoom-out;
+}
+
+/* ✨ SMOOTH IMAGE */
+.popup-img img {
+  transition: transform 0.3s ease;
+}
+
+/* 🚀 FLY IMAGE */
+.card img {
+  transition: transform 0.3s ease;
+}
+/* 🌙 THEME TOGGLE BUTTON */
+.theme-toggle {
+  border: none;
+  background: rgba(0,0,0,0.1);
+  padding: 6px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+/* 🌑 DARK MODE */
+body.dark {
+  background: #0f0f0f;
+  color: white;
+}
+
+/* NAV DARK */
+body.dark .nav {
+  background: rgba(0,0,0,0.6);
+  color: white;
+}
+
+/* CARD DARK */
+body.dark .card {
+  background: rgba(0,0,0,0.4);
+  color: white;
+}
+
+/* CART DARK */
+body.dark .cart-drawer,
+body.dark .cart-item,
+body.dark .checkout,
+body.dark .glass {
+  background: rgba(0,0,0,0.5);
+  color: white;
+}
+
+/* BUTTON DARK */
+body.dark .premium-btn {
+  background: white;
+  color: black;
+}
+
