@@ -1,3 +1,4 @@
+
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 // 🌗 THEME INIT
@@ -245,3 +246,62 @@ function checkout() {
 // 🚀 INIT
 renderProducts();
 updateCartUI();
+// =========================
+// 📲 FINAL ORDER → WHATSAPP (ADDED SAFELY)
+// =========================
+function finalOrder() {
+
+  const inputs = document.querySelectorAll("input");
+
+  const name = inputs[0]?.value.trim();
+  const address = inputs[1]?.value.trim();
+  const phone = inputs[2]?.value.trim();
+
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  // ❌ VALIDATION
+  if (!name || !address || !phone) {
+    alert("Please fill all details");
+    return;
+  }
+
+  if (cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+
+  // 🧾 MESSAGE BUILD (SAFE FORMAT)
+  let message = "New Order - Fleur Aesthetics\n\n";
+
+  message += "Name: " + name + "\n";
+  message += "Address: " + address + "\n";
+  message += "Phone: " + phone + "\n\n";
+
+  message += "Order Details:\n";
+
+  let total = 0;
+
+  cart.forEach(item => {
+    const itemTotal = item.price * item.qty;
+    message += "- " + item.name + " x" + item.qty + " = Rs " + itemTotal + "\n";
+    total += itemTotal;
+  });
+
+  message += "\nTotal: Rs " + total;
+
+  // 📞 YOUR NUMBER
+  const phoneNumber = "917719587527"; // <-- keep like this (no +)
+
+  // ✅ WHATSAPP URL (FIXED)
+  const url =
+    "https://wa.me/" +
+    phoneNumber +
+    "?text=" +
+    encodeURIComponent(message);
+
+  // 🚀 REDIRECT
+  window.location.href = url;
+
+  // 🧹 CLEAR CART AFTER ORDER
+  localStorage.removeItem("cart");
+}
