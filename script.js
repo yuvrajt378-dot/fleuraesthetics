@@ -290,7 +290,7 @@ function finalOrder() {
   message += "\nTotal: Rs " + total;
 
   // 📞 YOUR NUMBER
-  const phoneNumber = "917719587527"; // <-- keep like this (no +)
+  const phoneNumber = "9888651040"; // <-- keep like this (no +)
 
   // ✅ WHATSAPP URL (FIXED)
   const url =
