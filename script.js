@@ -1,5 +1,3 @@
-
-
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 // 🌗 THEME INIT
@@ -150,13 +148,13 @@ function addToCart(id, btn) {
   showToast("Added to cart ✨");
 }
 
-// 💾 SAVE
+// 💾 SAVE CART
 function saveCart() {
   localStorage.setItem("cart", JSON.stringify(cart));
   updateCartUI();
 }
 
-// 🔄 UPDATE UI
+// 🔄 UPDATE CART UI
 function updateCartUI() {
   const count = document.getElementById("cart-count");
   if (count) count.innerText = cart.reduce((a, b) => a + b.qty, 0);
@@ -199,7 +197,7 @@ function updateCartUI() {
   if (totalEl) totalEl.innerText = "Total: ₹" + total;
 }
 
-// 🔄 CHANGE QTY
+// 🔄 CHANGE QUANTITY
 function changeQty(id, change) {
   const item = cart.find(i => i.id === id);
   if (!item) return;
@@ -235,7 +233,7 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove("show"), 2000);
 }
 
-// 📦 CHECKOUT
+// 📦 GO TO CHECKOUT
 function checkout() {
   if (cart.length === 0) {
     showToast("Cart is empty 🥲");
@@ -244,25 +242,22 @@ function checkout() {
   window.location.href = "checkout.html";
 }
 
-// 🚀 INIT
-renderProducts();
-updateCartUI();
-// =========================
-// 📲 FINAL ORDER → WHATSAPP (ADDED SAFELY)
-// =========================
+// 📲 FINAL ORDER → WHATSAPP (FIXED)
 function finalOrder() {
 
-  const inputs = document.querySelectorAll("input");
-
-  const name = inputs[0]?.value.trim();
-  const address = inputs[1]?.value.trim();
-  const phone = inputs[2]?.value.trim();
+  const name = document.getElementById("name")?.value.trim();
+  const address = document.getElementById("address")?.value.trim();
+  const phone = document.getElementById("phone")?.value.trim();
 
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  // ❌ VALIDATION
   if (!name || !address || !phone) {
     alert("Please fill all details");
+    return;
+  }
+
+  if (!/^[0-9]{10}$/.test(phone)) {
+    alert("Enter valid 10-digit phone number");
     return;
   }
 
@@ -271,49 +266,28 @@ function finalOrder() {
     return;
   }
 
-  // 🧾 MESSAGE BUILD (SAFE FORMAT)
   let message = "New Order - Fleur Aesthetics\n\n";
-
-  message += "Name: " + name + "\n";
-  message += "Address: " + address + "\n";
-  message += "Phone: " + phone + "\n\n";
-
+  message += `Name: ${name}\n`;
+  message += `Address: ${address}\n`;
+  message += `Phone: ${phone}\n\n`;
   message += "Order Details:\n";
 
   let total = 0;
-
   cart.forEach(item => {
     const itemTotal = item.price * item.qty;
-    message += "- " + item.name + " x" + item.qty + " = Rs " + itemTotal + "\n";
+    message += `- ${item.name} x${item.qty} = Rs ${itemTotal}\n`;
     total += itemTotal;
   });
 
-  message += "\nTotal: Rs " + total;
+  message += `\nTotal: Rs ${total}`;
 
-  // 📞 YOUR NUMBER
-  const phoneNumber = "917719587527"; // <-- keep like this (no +)
+  const phoneNumber = "917719587527";
+  const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
-  // ✅ WHATSAPP URL (FIXED)
-  const url =
-    "https://wa.me/" +
-    phoneNumber +
-    "?text=" +
-    encodeURIComponent(message);
-
-  // 🚀 REDIRECT
   window.location.href = url;
-
-  // 🧹 CLEAR CART AFTER ORDER
   localStorage.removeItem("cart");
 }
-function finalOrder() {
-  const name = document.getElementById("name").value.trim();
-  const address = document.getElementById("address").value.trim();
-  const phone = document.getElementById("phone").value.trim();
 
-  if (!name || !address || !phone) return alert("Fill all fields");
-  if (!/^[0-9]{10}$/.test(phone)) return alert("Enter valid 10-digit phone");
-
-  const msg = encodeURIComponent(`Order from ${name}%0A${address}%0A${phone}`);
-  window.open(`https://wa.me/?text=${msg}`);
-}
+// 🚀 INIT
+renderProducts();
+updateCartUI();
