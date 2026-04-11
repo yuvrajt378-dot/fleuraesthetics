@@ -1,22 +1,24 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Fleur Aesthetics</title>
-<link rel="stylesheet" href="style.css">
+<meta name="description" content="Fleur Aesthetics – Premium skincare products." />
+<link rel="icon" href="images/logo.png" />
+<link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
 <div id="intro">
-  <h1>FLEUR OFFICIAL</h1>
+  <img src="images/logo.png" alt="Fleur Aesthetics logo" class="intro-logo" />
 </div>
 
-<!-- NAV -->
 <nav class="nav">
-  <h2>Fleur</h2>
+  <div class="brand">
+    <img src="images/logo.png" alt="Fleur logo" class="nav-logo" />
+    <h2>Fleur</h2>
+  </div>
   <div>
     <a href="index.html">Home</a>
     <a href="shop.html">Shop</a>
@@ -25,7 +27,6 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <h1>Fleur Aesthetics</h1>
   <p>Let your skin bloom 🌸</p>
@@ -33,12 +34,9 @@
 
 <div class="bottom-buttons">
   <a href="shop.html"><button class="premium-btn">Shop Now</button></a>
-  <a href="https://instagram.com/_fleur.official_" target="_blank">
-    <button class="outline-btn">Instagram</button>
-  </a>
+  <a href="https://instagram.com/_fleur.official_" target="_blank"><button class="outline-btn">Instagram</button></a>
 </div>
 
-<!-- CART -->
 <div id="cartDrawer" class="cart-drawer">
   <h3>Your Cart</h3>
   <div id="cart-items"></div>
@@ -47,17 +45,13 @@
 </div>
 
 <script src="script.js"></script>
-
 <script>
 window.onload = () => {
   const intro = document.getElementById("intro");
   intro.classList.add("show");
-
   setTimeout(() => intro.classList.add("hide"), 1800);
   setTimeout(() => intro.style.display = "none", 2400);
 };
 </script>
-
 </body>
 </html>
-
