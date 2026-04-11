@@ -1,4 +1,5 @@
 
+
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 // 🌗 THEME INIT
@@ -304,4 +305,15 @@ function finalOrder() {
 
   // 🧹 CLEAR CART AFTER ORDER
   localStorage.removeItem("cart");
+}
+function finalOrder() {
+  const name = document.getElementById("name").value.trim();
+  const address = document.getElementById("address").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+
+  if (!name || !address || !phone) return alert("Fill all fields");
+  if (!/^[0-9]{10}$/.test(phone)) return alert("Enter valid 10-digit phone");
+
+  const msg = encodeURIComponent(`Order from ${name}%0A${address}%0A${phone}`);
+  window.open(`https://wa.me/?text=${msg}`);
 }
