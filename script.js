@@ -281,7 +281,7 @@ function finalOrder() {
 
   message += `\nTotal: Rs ${total}`;
 
-  const phoneNumber = "917719587527";
+  const phoneNumber = "919888651040";
   const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
   window.location.href = url;
